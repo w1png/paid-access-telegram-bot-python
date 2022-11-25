@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "paid-access"
+version = "0.1.0"
+description = ""
+authors = ["Denis Smirnov <w1png@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "paid_access"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
