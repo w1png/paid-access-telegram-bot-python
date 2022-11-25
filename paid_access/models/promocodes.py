@@ -12,6 +12,7 @@ def get_database_table() -> str:
     uses INTEGER,
     max_uses INTEGER,
     expires INTEGER,
+    first_order_only INTEGER,
     active INTEGER,
     UNIQUE (name))"""
 
@@ -73,6 +74,13 @@ class Promocode:
     @expires.setter
     def expires(self, value: int) -> None:
         self.__update("expires", value)
+
+    @property
+    def first_order_only(self) -> bool:
+        return bool(self.__query("first_order_only"))
+    @first_order_only.setter
+    def first_order_only(self, value: bool) -> None:
+        self.__update("first_order_only", int(value))
 
     @property
     def active(self) -> bool:
