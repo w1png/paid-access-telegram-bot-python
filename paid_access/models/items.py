@@ -76,3 +76,7 @@ class Item:
     def is_active(self, value: bool) -> None:
         self.__update("is_active", int(value))
 
+
+def get_items() -> list:
+    return [Item(id) for id in database.fetch("SELECT id FROM items")]
+
