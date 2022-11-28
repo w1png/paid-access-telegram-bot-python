@@ -15,7 +15,7 @@ class User:
     def __query(self, field: str) -> Any:
         return database.fetch(f"SELECT {field} FROM users WHERE id = ?", (self.user_id,))
 
-    def __update(self, field: str, value: Any) -> None:
+    def __update(self, field: str, value: str) -> None:
         database.execute(f"UPDATE users SET {field} = ? WHERE id = ?", (value, self.user_id))
 
     @property
@@ -26,6 +26,7 @@ class User:
         self.__update("promocode", value.id)
 
 
-def create(user_id: int) -> None:
-    database.execute("INSERT INTO users (id, promocode) VALUES (?, ?)", (user_id, None))
+def create(user_id: int) -> User:
+    database.execute("INSERT INTO users VALUES (?, ?)", (user_id, None))
+    return User(user_id)
 
