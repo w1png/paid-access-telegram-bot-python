@@ -11,6 +11,8 @@ def get_database_table() -> str:
 class User:
     def __init__(self, user_id: int) -> None:
         self.user_id = user_id
+        if does_exist(user_id):
+            create(user_id)
 
     def __query(self, field: str) -> Any:
         return database.fetch(f"SELECT {field} FROM users WHERE id = ?", (self.user_id,))
@@ -30,3 +32,6 @@ def create(user_id: int) -> User:
     database.execute("INSERT INTO users VALUES (?, ?)", (user_id, None))
     return User(user_id)
 
+
+def does_exist(user_id: int) -> bool:
+    return database.fetch("SELECT id FROM users WHERE id = ?", (user_id,)) is not None
