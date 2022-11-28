@@ -15,10 +15,13 @@ class __Config:
         with open(self.config_path, "w") as f:
             json.dump(self.config, f)
 
-    def __getattr__(self, field: str) -> Any:
+    def __repr__(self) -> dict:
+        return self.config
+
+    def __getitem__(self, field: str) -> Any:
         return self.config[field]
 
-    def __setattr__(self, field: str, value: Any) -> None:
+    def __setitem__(self, field: str, value: Any) -> None:
         if field in ["config_path", "config"]:
             super().__setattr__(field, value)
         else:

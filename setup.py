@@ -8,7 +8,7 @@ def create_config():
         },
     }
 
-    open("config.json", "w").write(json.dumps(default_config, indent=4, encoding="utf-8"))
+    open("config.json", "w").write(json.dumps(default_config, indent=4, ensure_ascii=False))
 
 
 if not os.path.exists("config.json"):

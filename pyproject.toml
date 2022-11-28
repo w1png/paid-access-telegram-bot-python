@@ -8,6 +8,8 @@ packages = [{include = "paid_access"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+aiogram = "^2.23.1"
+python-dotenv = "^0.21.0"
 
 
 [build-system]
