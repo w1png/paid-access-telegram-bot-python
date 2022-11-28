@@ -1,12 +1,3 @@
-# this is a class for payments
-# id
-# user_id
-# item_id
-# promocode_id
-# date_created
-# date_paid
-# date_expired
-
 from typing import Any
 from utils import database
 from random import randint
@@ -14,15 +5,16 @@ import time
 
 
 def get_database_table() -> str:
-    return """CREATE TABLE IF NOT EXISTS payments (
-    id INTEGER,
-    user_id INTEGER REFERENCES users(id) NOT NULL,
-    item_id INTEGER REFERENCES items(id) NOT NULL,
-    promocode_id INTEGER REFERENCES promocodes(id),
-    date_created INTEGER NOT NULL,
-    date_paid INTEGER,
-    date_expired INTEGER"""
-
+    return """CREATE TABLE IF NOT EXISTS "payments" (
+	"id"	INTEGER,
+	"user_id"	INTEGER,
+	"item_id"	INTEGER,
+	"promocode_id"	INTEGER,
+	"date_created"	INTEGER,
+	"date_paid"	INTEGER,
+	"date_expired"	INTEGER
+);"""
+    
 
 class Payment:
     def __init__(self, id: int) -> None:

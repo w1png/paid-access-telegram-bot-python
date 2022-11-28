@@ -1,7 +1,7 @@
 from typing import Any
 from utils import database
 
-def database_table():
+def get_database_table():
     return """CREATE TABLE IF NOT EXISTS items (
 id INTEGER PRIMARY KEY,
 name TEXT,
@@ -10,8 +10,8 @@ price REAL,
 image TEXT,
 group_id INTEGER,
 is_subscription INTEGER,
-is_active INTEGER,
-"""
+is_active INTEGER
+)"""
 
 
 class Item:
