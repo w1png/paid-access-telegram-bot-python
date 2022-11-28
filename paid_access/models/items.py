@@ -80,3 +80,20 @@ class Item:
 def get_items() -> list:
     return [Item(id) for id in database.fetch("SELECT id FROM items")]
 
+
+def create(
+    id: int,
+    name: str,
+    description: str,
+    price: float,
+    image: bytes,
+    group_id: int,
+    is_subscription: bool,
+    is_active: bool,
+) -> Item:
+    database.execute(
+        "INSERT INTO items VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        (id, name, description, price, image, group_id, int(is_subscription), int(is_active))
+    )
+    return Item(id)
+
