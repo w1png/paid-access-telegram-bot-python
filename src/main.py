@@ -50,7 +50,7 @@ async def main_menu(message: types.Message):
     else:
         return await message.answer(constants.language.unknown_command)
 
-    return importlib.import_module(f"callbacks.{role}.{destination}").handler(user, message, None)
+    return importlib.import_module(f"callbacks.{role}.{destination}").execute(user, message, None)
 
 
 def parse_callback(callback: str):
