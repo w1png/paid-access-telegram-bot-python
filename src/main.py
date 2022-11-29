@@ -12,6 +12,7 @@ from aiogram.dispatcher import FSMContext
 import constants
 import models
 import utils
+import markups
 
 
 # First startup
@@ -30,9 +31,26 @@ dp = Dispatcher(bot, storage=storage)
 
 @dp.message_handler(commands=["start"])
 async def start(message: types.Message):
+    user = models.users.User(message.from_user.id)
+
     await message.answer(
-        utils.config["info"]["greeting"]
+        utils.config["info"]["greeting"],
+        reply_markup=markups.main_markup
     )
+
+
+@dp.message_handler()
+async def main_menu(message: types.Message):
+    user = models.users.User(message.from_user.id)
+
+    destination = ""
+    role = "user"
+    if message.text == constants.language.items:
+        destination = "items"
+    else:
+        return await message.answer(constants.language.unknown_command)
+
+    return importlib.import_module(f"callbacks.{role}.{destination}").handler(user, message, None)
 
 
 def parse_callback(callback: str):
