@@ -5,8 +5,6 @@ from constants import language
 
 
 async def execute(user: models.users.User, query: types.CallbackQuery, data: dict) -> None:
-    message = query
-    
     markup = markups.create_markup([
         (language.items, "admin_items{}"),
         (language.close, "user_close{}"),
