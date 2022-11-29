@@ -74,7 +74,7 @@ async def callback_handler(query: types.CallbackQuery):
     role, call, data = parse_callback(query.data)
     user = models.users.User(query.from_user.id)
 
-    if role == "admin" and not user.is_admin(user):
+    if role == "admin" and not user.is_admin:
         return await utils.send_no_permission(query.answer)
 
     return await importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
