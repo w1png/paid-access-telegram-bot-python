@@ -50,7 +50,7 @@ async def main_menu(message: types.Message):
     else:
         return await message.answer(constants.language.unknown_command)
 
-    return importlib.import_module(f"callbacks.{role}.{destination}").execute(user, message, None)
+    return await importlib.import_module(f"callbacks.{role}.{destination}").execute(user, message, None)
 
 
 def parse_callback(callback: str):
@@ -68,7 +68,7 @@ async def callback_handler(query: types.CallbackQuery):
     if role == "admin" and not user.is_admin(user):
         return await utils.send_no_permission(query.answer)
 
-    return importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
+    return await importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
 
 
 if __name__ == "__main__":
