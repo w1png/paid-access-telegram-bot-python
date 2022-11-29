@@ -27,11 +27,30 @@ storage = MemoryStorage()
 bot = Bot(token=constants.TOKEN)
 dp = Dispatcher(bot, storage=storage)
 
+
 @dp.message_handler(commands=["start"])
 async def start(message: types.Message):
     await message.answer(
         utils.config["info"]["greeting"]
     )
+
+
+def parse_callback(callback: str):
+    role = callback.split("_")[0]
+    call = callback[callback.find("_") + 1:callback.find("{")]
+    data = json.loads(callback[callback.find("{"):])
+    return role, call, data
+
+
+@dp.callback_query_handler()
+async def callback_handler(query: types.CallbackQuery):
+    role, call, data = parse_callback(query.data)
+    user = models.users.User(query.from_user.id)
+
+    if role == "admin" and not user.is_admin(user):
+        return await utils.send_no_permission(query.answer)
+
+    return importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
 
 
 if __name__ == "__main__":
