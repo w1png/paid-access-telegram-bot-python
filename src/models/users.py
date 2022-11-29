@@ -5,6 +5,7 @@ from models import promocodes
 def get_database_table() -> str:
     return """CREATE TABLE IF NOT EXISTS users (
     id INTEGER,
+    is_admin INTEGER,
     promocode_id INTEGER, FOREIGN KEY (promocode_id) REFERENCES promocodes(id)
 )"""
 
@@ -20,6 +21,13 @@ class User:
 
     def __update(self, field: str, value: Any) -> None:
         database.execute(f"UPDATE users SET {field} = ? WHERE id = ?", (value, self.user_id))
+
+    @property
+    def is_admin(self) -> bool:
+        return bool(self.__query("is_admin"))
+    @is_admin.setter
+    def is_admin(self, value: bool) -> None:
+        self.__update("is_admin", int(value))
 
     @property
     def promocode(self) -> promocodes.Promocode:
