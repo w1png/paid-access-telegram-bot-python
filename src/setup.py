@@ -1,17 +1,17 @@
 import importlib
 import os, json
 
-language = ""
-while language not in ["ru", "en"]:
-    language = input("Введите язык/Enter language (ru/en): ")
+language_short = ""
+while language_short not in ["ru", "en"]:
+    language_short = input("Введите язык/Enter language (ru/en): ")
 
-language = importlib.import_module(f"language.{language}")
+language = importlib.import_module(f"language.{language_short}")
 
 
 def create_config():
     default_config = {
         "main_admin_id": input(language.setup_main_admin_id),
-        "language": language,
+        "language": language_short,
         "info": {
             "greeting": language.default_greeting,
         },
