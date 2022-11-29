@@ -19,8 +19,11 @@ import markups
 if not os.path.exists("database.db"):
     utils.database.execute("PRAGMA foreign_keys = ON")
     for model in [models.users, models.items, models.promocodes, models.payments]:
-        print(f"Creating table {model.get_database_table()}")
+        print(f"Creating table {model.__name__}")
         utils.database.execute(model.get_database_table())
+
+    models.users.create(constants.config["main_admin_id"], is_admin=True,)
+
 if not os.path.exists("config.json"):
     raise FileNotFoundError("config.json не найден. Запустите setup.py для его создания.")
 

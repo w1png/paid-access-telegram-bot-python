@@ -37,8 +37,8 @@ class User:
         self.__update("promocode", value.id)
 
 
-def create(user_id: int) -> User:
-    database.execute("INSERT INTO users (id, is_admin, promocode_id) VALUES (?, ?, ?)", (user_id, 0, None,))
+def create(user_id: int, is_admin: bool=False) -> User:
+    database.execute("INSERT INTO users (id, is_admin, promocode_id) VALUES (?, ?, ?)", (user_id, int(is_admin), None,))
     return User(user_id)
 
 
