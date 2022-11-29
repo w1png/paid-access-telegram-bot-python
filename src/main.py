@@ -36,6 +36,10 @@ dp = Dispatcher(bot, storage=storage)
 async def start(message: types.Message):
     user = models.users.User(message.from_user.id)
 
+    markup = markups.main_markup
+    if user.is_admin:
+        markup.add(types.KeyboardButton(constants.language.admin_panel))
+
     await message.answer(
         utils.config["info"]["greeting"],
         reply_markup=markups.main_markup
@@ -50,6 +54,8 @@ async def main_menu(message: types.Message):
     role = "user"
     if message.text == constants.language.items:
         destination = "items"
+    elif message.text == constants.language.admin_panel:
+        destination = "adminPanel"
     else:
         return await message.answer(constants.language.unknown_command)
 
