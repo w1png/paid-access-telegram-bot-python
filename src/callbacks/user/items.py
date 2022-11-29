@@ -14,7 +14,7 @@ async def execute(user: models.users.User, query: types.CallbackQuery | types.Me
             (item.name, f"user_item{'i': item.id}")
         for item in models.items.get_items()
     ]
-    markup.append((language.close, "user_close"))
+    markup.append((language.close, "user_close{}"))
 
     return await message.answer(
         text=language.items,
