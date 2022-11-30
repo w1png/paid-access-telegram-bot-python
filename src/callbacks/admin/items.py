@@ -11,8 +11,7 @@ async def execute(user: models.users.User, query: types.CallbackQuery, data: dic
             (language.admin_add_item, "admin_addItem{}"),
             (language.admin_remove_item, "admin_removeItem{}"),
             (language.admin_edit_item, "admin_editItem{}"),
-            (language.admin_add_item_to_user, "admin_addItemToUser{}"),
-            (language.back, 'admin_back{"rd":"adminPanel"}'),
+            (language.back, 'admin_adminPanel{}')
         ])
     )
 
