@@ -55,6 +55,7 @@ async def main_menu(message: types.Message):
     if message.text == constants.language.items:
         destination = "items"
     elif message.text == constants.language.admin_panel:
+        role = "admin"
         destination = "adminPanel"
     else:
         return await message.answer(constants.language.unknown_command)
