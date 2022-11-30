@@ -7,6 +7,7 @@ default_greeting = "Привет! Я бот,который поможет теб
 
 # menu
 items = "Каналы"
+promocodes = "Промокоды"
 admin_panel = "Панель администратора"
 
 # Admin
@@ -14,7 +15,12 @@ admin_panel = "Панель администратора"
 admin_add_item = "Добавить канал"
 admin_remove_item = "Удалить канал"
 admin_edit_item = "Редактировать канал"
-admin_add_item_to_user = "Добавить канал пользователю"
+
+# Admin promocodes
+admin_add_promocode = "Добавить промокод"
+admin_remove_promocode = "Удалить промокод"
+admin_edit_promocode = "Редактировать промокод"
+admin_promocode_data = "Информация о промокоде"
 
 # Misc
 no_permission = "У вас нет прав для выполнения этого действия."
