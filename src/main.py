@@ -4,6 +4,8 @@ import importlib
 import logging
 import sys
 import json
+import traceback
+import copy
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -36,13 +38,13 @@ dp = Dispatcher(bot, storage=storage)
 async def start(message: types.Message):
     user = models.users.User(message.from_user.id)
 
-    markup = markups.main_markup
+    markup = copy.deepcopy(markups.main_markup)
     if user.is_admin:
         markup.add(types.KeyboardButton(constants.language.admin_panel))
 
     await message.answer(
         utils.config["info"]["greeting"],
-        reply_markup=markups.main_markup
+        reply_markup=markup,
     )
 
 
@@ -61,7 +63,7 @@ async def main_menu(message: types.Message):
         return await message.answer(constants.language.unknown_command)
 
     return await importlib.import_module(f"callbacks.{role}.{destination}").execute(user, message, None)
-
+    
 
 def parse_callback(callback: str):
     role = callback.split("_")[0]
@@ -78,7 +80,11 @@ async def callback_handler(query: types.CallbackQuery):
     if role == "admin" and not user.is_admin:
         return await utils.send_no_permission(query.answer)
 
-    return await importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
+    try:
+        return await importlib.import_module(f"callbacks.{role}.{call}").execute(user, query, data)
+    except Exception:
+        traceback.print_exc()
+        return await query.answer(constants.language.unknown_error)
 
 
 if __name__ == "__main__":
