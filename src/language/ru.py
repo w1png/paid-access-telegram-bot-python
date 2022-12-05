@@ -22,9 +22,14 @@ admin_remove_promocode = "Удалить промокод"
 admin_edit_promocode = "Редактировать промокод"
 admin_promocode_data = "Информация о промокоде"
 
+# add promocode
+add_promocode_name = "Введите название промокода или нажмите \"Отмена\": "
+
 # Misc
 no_permission = "У вас нет прав для выполнения этого действия."
 unknown_command = "Неизвестная команда."
 unknown_error = "Произошла неизвестная ошибка. Попробуйте еще раз."
 close = "Закрыть"
 back = "Назад"
+cancel = "Отмена"
+
