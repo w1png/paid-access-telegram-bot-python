@@ -12,15 +12,15 @@ def get_database_table() -> str:
 
 class User:
     def __init__(self, user_id: int) -> None:
-        self.user_id = user_id
-        if not does_exist(user_id):
-            create(user_id)
+        self.id = user_id
+        if not does_exist(self.id):
+            create(self.id)
 
     def __query(self, field: str) -> Any:
-        return database.fetch(f"SELECT {field} FROM users WHERE id = ?", (self.user_id,))
+        return database.fetch(f"SELECT {field} FROM users WHERE id = ?", (self.id,))
 
     def __update(self, field: str, value: Any) -> None:
-        database.execute(f"UPDATE users SET {field} = ? WHERE id = ?", (value, self.user_id))
+        database.execute(f"UPDATE users SET {field} = ? WHERE id = ?", (value, self.id,))
 
     @property
     def is_admin(self) -> bool:
